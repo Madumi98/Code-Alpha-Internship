@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Age Calculator</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  button {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+  }
+
+  button:hover {
+    background-color: #45a049;
+  }
+
+  #result {
+    text-align: center;
+    font-size: 20px;
+    margin-top: 20px;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h1>Age Calculator</h1>
+    <label for="dob">Date of Birth:</label>
+    <input type="number" id="dob" placeholder="Enter your birth date (1-31)" min="1" max="31">
+    <label for="month">Month:</label>
+    <input type="number" id="month" placeholder="Enter your birth month (1-12)" min="1" max="12">
+    <label for="year">Year:</label>
+    <input type="number" id="year" placeholder="Enter your birth year" min="0">
+    <button onclick="calculateAge()">Calculate Age</button>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function calculateAge() {
+      var dob = document.getElementById('dob').value;
+      var month = document.getElementById('month').value;
+      var year = document.getElementById('year').value;
+
+      if (dob <= 0 || dob > 31 || month <= 0 || month > 12 || year <= 0) {
+        alert('Please enter valid values for date, month, and year.');
+        return;
+      }
+
+      var today = new Date();
+      var birthDate = new Date(year, month - 1, dob);
+      var age = today.getFullYear() - birthDate.getFullYear();
+      var m = today.getMonth() - birthDate.getMonth();
+
+      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+      }
+
+      document.getElementById('result').innerText = 'Your age is: ' + age;
+    }
+  </script>
+</body>
+</html>
